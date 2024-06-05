@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>24 : Reactive: Midterm Game</title>
+    <style>
+        body {
+            background-color: rgb(72, 153, 242);
+            margin: 0;
+            padding-top: 50px;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: start;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // 캔버스 요소 생성
+        var canvas = document.createElement('canvas');
+        canvas.width = 480;
+        canvas.height = 800;
+        canvas.style.backgroundColor = 'rgb(180, 180, 180)';
+        document.body.appendChild(canvas);
+
+        // 캔버스 컨텍스트 가져오기
+        var ctx = canvas.getContext('2d');
+
+        // 캔버스에 그리기
+        ctx.translate(canvas.width / 2, canvas.height / 2);
+
+        function drawStar(cx, cy, spikes, outerRadius, innerRadius) {
+            var rot = Math.PI / 2 * 3;
+            var x = cx;
+            var y = cy;
+            var step = Math.PI / spikes;
+
+            ctx.strokeStyle = "black";
+            ctx.beginPath();
+            ctx.moveTo(cx, cy - outerRadius)
+            for (i = 0; i < spikes; i++) {
+                x = cx + Math.cos(rot) * outerRadius;
+                y = cy + Math.sin(rot) * outerRadius;
+                ctx.lineTo(x, y)
+                rot += step
+
+                x = cx + Math.cos(rot) * innerRadius;
+                y = cy + Math.sin(rot) * innerRadius;
+                ctx.lineTo(x, y)
+                rot += step
+            }
+            ctx.lineTo(cx, cy - outerRadius)
+            ctx.closePath();
+            ctx.lineWidth = 5;
+            ctx.stroke();
+            ctx.fillStyle = 'yellow';
+            ctx.fill();
+        }
+
+        function drawHeart(x, y, size) {
+            ctx.beginPath();
+            ctx.moveTo(x, y - size / 2);
+            ctx.bezierCurveTo(x + size / 4, y - size, x + size, y - size / 4, x, y + size);
+            ctx.bezierCurveTo(x - size, y - size / 4, x - size / 4, y - size, x, y - size / 2);
+            ctx.fillStyle = 'red';
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(-canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
+        }
+
+        function updateHeartPosition() {
+            clearCanvas();
+            var newPosition = getRandomPosition();
+            drawHeart(newPosition.x, newPosition.y, 30); // 크기를 30으로 지정하여 그리기
+        }
+
+        function getRandomPosition() {
+            var x = Math.random() * canvas.width - canvas.width / 2;
+            var y = Math.random() * canvas.height - canvas.height / 2;
+            return { x: x, y: y };
+        }
+
+        // Initial drawing
+        drawStar(0, 0, 5, 15, 7.5);
+        var position = getRandomPosition();
+        drawHeart(position.x, position.y, 30); // 크기를 30으로 지정하여 그리기
+
+        // Update heart position every 2 seconds
+        setInterval(updateHeartPosition, 2000);
+    </script>    
+</body>
+</html>

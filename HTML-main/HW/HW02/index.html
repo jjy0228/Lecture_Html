@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="d_Top">
+            <p id="student_id">학번 202027057</p>
+            <p id="student_name">이름 장준영</p>
+        </div>
+        <div class="main_Wrapper">
+            <div id="d_Left">
+                <button onclick="Circle();" id="btn1">버튼 1</button>
+                <button onclick="Game()" id="btn2">버튼 2</button>
+            </div>
+            <div id="d_Right">
+                <canvas id="circle"></canvas>
+                <div id="game">
+                    <div class="gameWrapper">
+                        <div class="gameImage">
+                            <img src="./v.avif" alt="">
+                        </div>
+                        <div class="gameContent">
+                            <p>내가 좋아하는 게임 이름 : 발로란트</p>
+                            <p>출시년도 : 2020년 06월 22일</p>
+                            <p>장르 : FPS</p>
+                            <p>좋아하는 이유 : 레인보우식스나 카운터스트라이크 같은 게임보다 진입</p>
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp장벽이 낮고 친구들끼리 다인큐로 하기에 재밌습니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        let canvas = document.getElementById('circle');
+        let game = document.getElementById("game");
+        // 원그리기 코드
+        let ctx = canvas.getContext("2d");
+        ctx.beginPath();
+        ctx.arc(100, 100, 50, 0, 2 * Math.PI);
+        ctx.stroke();
+        ctx.fillStyle = 'blue';
+        ctx.fill();
+
+        function Circle() {
+            canvas.style.display = "block";
+            game.style.display = "none";
+        }
+
+        function Game() {
+            canvas.style.display = "none";
+            game.style.display = "block";
+        }
+    </script>
+</body>
+
+</html>
